@@ -1,0 +1,28 @@
+group 'io.github.jonhshepard.tifromtext'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+compileJava.options.encoding = 'UTF-8'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+    compile 'org.kordamp.bootstrapfx:bootstrapfx-core:0.2.2'
+}
+
+jar {
+    manifest {
+        attributes('Main-Class': 'io.github.jonhshepard.tifromtext.TiFromText')
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
